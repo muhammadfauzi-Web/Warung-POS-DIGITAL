@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warung POS - Sistem Kasir & Stok</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <h1 class="header-title">Warung POS Digital</h1>
+        <div id="status-koneksi" class="status-badge">Menghubungkan...</div>
+    </header>
+
+    <main class="main-container">
+        <section class="produk-section">
+            <h2 class="section-title">Daftar Produk</h2>
+            <div id="grid-produk" class="grid-produk">
+                <p class="loading-text">Memuat data produk dari spreadsheet...</p>
+            </div>
+        </section>
+
+        <section class="keranjang-section">
+            <h2 class="section-title">Keranjang Belanja</h2>
+            <div id="list-keranjang" class="list-keranjang">
+                <p class="empty-text">Belum ada barang dipilih</p>
+            </div>
+
+            <div class="total-container">
+                <div class="total-row">
+                    <span>Total Item:</span>
+                    <span id="total-item">0</span>
+                </div>
+                <div class="total-row besar">
+                    <span>Total Bayar:</span>
+                    <span id="total-bayar">Rp 0</span>
+                </div>
+            </div>
+
+            <div class="bayar-form">
+                <div class="input-group">
+                    <label class="input-label">Uang Diterima (Cash)</label>
+                    <input type="number" id="input-cash" placeholder="Masukkan nominal uang">
+                </div>
+                <div class="total-row kembalian-row">
+                    <span>Kembalian:</span>
+                    <span id="text-kembalian">Rp 0</span>
+                </div>
+                <button id="btn-proses-bayar" class="btn btn-submit" disabled>Proses & Simpan Transaksi</button>
+            </div>
+        </section>
+    </main>
+
+    <script href="script.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 // Gantilah string di bawah ini dengan URL Web App dari Google Apps Script milikmu!
-const URL_API = "https://script.google.com/macros/s/AKfycbxZHkVp6fJR-Z_C--7W5xktl0-VOUKq7T45YQFxhGz32mhJGlqWD1nTyyPywHvirQeA/exec";
+const URL_API = "https://script.google.com/macros/s/AKfycbyyFNGkuja2g8wmiFGjEvFYmGnSslOSS9L67PzUuyGaA5KiJlYI8apUI-zkTszf5Jo1/exec";
 
 let dataProduk = [];
 let keranjang = {};

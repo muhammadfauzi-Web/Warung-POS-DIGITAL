@@ -3,270 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Struk SPBU Generator</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
+    <title>Warung POS - Sistem Kasir & Stok</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="text-slate-700 font-sans antialiased text-sm">
+<body>
 
-    <header class="bg-white border-b border-slate-200 py-3 px-6 sticky top-0 z-50 shadow-sm flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="bg-red-500 text-white p-1.5 rounded-lg font-bold text-lg tracking-tighter shadow-sm">
-                <span class="bg-white text-red-500 px-1 rounded-sm mr-0.5 text-sm">P!</span>
-            </div>
-            <div>
-                <h1 class="font-bold text-slate-800 text-base leading-tight">Struk SPBU Generator</h1>
-                <p class="text-xs text-slate-400">Buat & cetak struk pengisian BBM dalam hitungan detik</p>
-            </div>
-        </div>
-        <button onclick="window.location.reload()" class="text-xs flex items-center gap-1.5 text-slate-500 hover:text-slate-800 border px-3 py-1.5 rounded-lg font-medium bg-slate-50 shadow-sm">
-            🔄 Reset
-        </button>
+    <header class="app-header">
+        <h1 class="header-title">Warung POS Digital</h1>
+        <div id="status-koneksi" class="status-badge">Menghubungkan...</div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
-                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <div>
-                        <h2 class="text-lg font-bold text-slate-800">Edit Struk</h2>
-                        <p class="text-xs text-slate-400">Isi data transaksi. Preview otomatis di samping.</p>
-                    </div>
-                    <span class="text-[10px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded border border-red-200 tracking-wider uppercase">Pertamina</span>
-                </div>
-                
-                <div class="space-y-3">
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <div class="sm:col-span-1">
-                            <label class="text-xs font-semibold text-slate-500 block mb-1">Kode SPBU</label>
-                            <input type="text" id="in-code" value="34-41103" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="text-xs font-semibold text-slate-500 block mb-1">Nama SPBU</label>
-                            <input type="text" id="in-name" value="SPBU RAYA KEBON KOLOT" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Alamat SPBU</label>
-                        <input type="text" id="in-address" value="JL. RAYA KEBON KOLOT" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                    </div>
-                </div>
+    <main class="main-container">
+        <section class="produk-section">
+            <h2 class="section-title">Daftar Produk</h2>
+            <div id="grid-produk" class="grid-produk">
+                <p class="loading-text">Memuat data produk dari spreadsheet...</p>
+            </div>
+        </section>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-50">
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Nomor Nota / Transaksi</label>
-                        <input type="text" id="in-trans" value="1245" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                    </div>
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Shift</label>
-                        <select id="in-shift" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                            <option value="1" selected>Shift 1</option>
-                            <option value="2">Shift 2</option>
-                            <option value="3">Shift 3</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Tanggal & Waktu</label>
-                        <input type="datetime-local" id="in-time" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition text-xs">
-                    </div>
-                </div>
+        <section class="keranjang-section">
+            <h2 class="section-title">Keranjang Belanja</h2>
+            <div id="list-keranjang" class="list-keranjang">
+                <p class="empty-text">Belum ada barang dipilih</p>
+            </div>
 
-                <div class="grid grid-cols-2 gap-3 pt-2 border-t border-slate-50">
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Pompa</label>
-                        <select id="in-pompa" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                            <option value="1" selected>Pompa 1</option>
-                            <option value="2">Pompa 2</option>
-                            <option value="3">Pompa 3</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Selang</label>
-                        <select id="in-selang" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                            <option value="1" selected>Selang 1</option>
-                            <option value="2">Selang 2</option>
-                            <option value="3">Selang 3</option>
-                        </select>
-                    </div>
+            <div class="total-container">
+                <div class="total-row">
+                    <span>Total Item:</span>
+                    <span id="total-item">0</span>
                 </div>
-
-                <div class="space-y-3 pt-2 border-t border-slate-50">
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Operator</label>
-                        <input type="text" id="in-op" value="FAUZI" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                    </div>
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Jenis BBM</label>
-                        <select id="in-bbm" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                            <option value="PERTALITE|10000|18040|8040|true" selected>PERTALITE — Rp 10.000/liter</option>
-                            <option value="PERTAMAX|12950|12950|0|false">PERTAMAX — Rp 12.950/liter</option>
-                            <option value="PERTAMAX TURBO|14400|14400|0|false">PERTAMAX TURBO — Rp 14.400/liter</option>
-                            <option value="SOLAR SUBSIDI|6800|11500|4700|true">SOLAR SUBSIDI — Rp 6.800/liter</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-50">
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Volume (Liter)</label>
-                        <input type="number" id="in-vol" value="10" step="0.01" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                    </div>
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Total Harga</label>
-                        <input type="text" id="in-total-disabled" disabled class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-100 text-slate-500 font-medium">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Jumlah Pembayaran (Rp)</label>
-                        <input type="number" id="in-cash" value="100000" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                    </div>
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Kembalian</label>
-                        <input type="text" id="in-change-disabled" disabled class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-100 text-slate-500 font-medium">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3 pt-2 border-t border-slate-50">
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">No. Plat Kendaraan</label>
-                        <input type="text" id="in-plat" value="B 2711 TZL" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                    </div>
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500 block mb-1">Kilometer</label>
-                        <input type="text" id="in-km" value="-" class="w-full px-3 py-2 border border-slate-200 rounded-lg bg-slate-50/50 text-slate-800 focus:outline-none focus:border-blue-500 transition">
-                    </div>
+                <div class="total-row besar">
+                    <span>Total Bayar:</span>
+                    <span id="total-bayar">Rp 0</span>
                 </div>
             </div>
 
-            <div class="lg:col-span-5 flex flex-col items-center">
-                <div class="w-full flex justify-between items-center max-w-[340px] px-1 mb-2">
-                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Preview Struk</span>
-                    <span class="text-[10px] bg-emerald-50 text-emerald-600 border border-emerald-200 font-semibold px-2 py-0.5 rounded-full">🟢 Live Update</span>
+            <div class="bayar-form">
+                <div class="input-group">
+                    <label class="input-label">Uang Diterima (Cash)</label>
+                    <input type="number" id="input-cash" placeholder="Masukkan nominal uang">
                 </div>
-                
-                <div id="struk-print" class="bg-white p-5 border border-slate-200 shadow-xl text-black font-mono text-xs w-[340px] leading-relaxed rounded-sm select-none">
-                    
-                    <div class="text-center space-y-0.5 pb-2 mb-2">
-                        <div class="font-bold text-sm tracking-widest flex justify-center items-center gap-1">
-                            <span>//</span> PERTAMINA
-                        </div>
-                        <div class="font-bold text-sm" id="out-code">34-41103</div>
-                        <div class="font-bold uppercase text-[11px]" id="out-name">SPBU RAYA KEBON KOLOT</div>
-                        <div id="out-address" class="text-[10px] uppercase">JL. RAYA KEBON KOLOT</div>
-                    </div>
-
-                    <div class="space-y-0.5 border-t border-dashed border-black pt-2">
-                        <div class="flex justify-between">
-                            <span id="out-shift">Shift : 1</span>
-                            <span id="out-trans">No.Trans: 1245</span>
-                        </div>
-                        <div id="out-time">Waktu : 29/06/2026 23:39:00</div>
-                    </div>
-
-                    <div class="border-t border-dashed border-black my-2 pt-2 space-y-0.5">
-                        <div class="grid grid-cols-12">
-                            <span class="col-span-5">Pulau/Pompa</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-pompa" class="col-span-6">1 / 1</span>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <span class="col-span-5">Operator</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-op" class="col-span-6 uppercase">FAUZI</span>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <span class="col-span-5">Jenis BBM</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-bbmname" class="col-span-6 uppercase">PERTALITE</span>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <span class="col-span-5">Volume</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-vol" class="col-span-6">10 liter</span>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-dashed border-black my-2 pt-2 space-y-0.5">
-                        <div class="font-bold text-[11px] mb-1">Informasi Harga BBM (Rp/Liter)</div>
-                        <div class="grid grid-cols-12">
-                            <span class="col-span-5">Harga Non Subsidi</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-harganonsubs" class="col-span-6 text-right">18,040</span>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <span class="col-span-5">Subsidi Pemerintah</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-hargasubs" class="col-span-6 text-right">8,040</span>
-                        </div>
-                        <div class="grid grid-cols-12 font-bold">
-                            <span class="col-span-5">Harga Jual</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-hargajual" class="col-span-6 text-right">10,000</span>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-dashed border-black my-2 pt-2 space-y-0.5">
-                        <div class="font-bold text-[11px] mb-1">Total Penjualan (Rp)</div>
-                        <div class="grid grid-cols-12">
-                            <span class="col-span-5">Tanpa Subsidi</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-totalnonsubs" class="col-span-6 text-right">180,400</span>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <span class="col-span-5">Subsidi Pemerintah</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-totalsubs" class="col-span-6 text-right">80,400</span>
-                        </div>
-                        <div class="grid grid-cols-12 font-bold border-t border-black pt-0.5">
-                            <span class="col-span-5">Dibayar Konsumen</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-totaljual" class="col-span-6 text-right">100,000</span>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-dashed border-black my-2 pt-2 space-y-0.5">
-                        <div class="grid grid-cols-12 font-bold">
-                            <span class="col-span-5">CASH</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-cash" class="col-span-6 text-right">100,000</span>
-                        </div>
-                        <div class="grid grid-cols-12 font-bold">
-                            <span class="col-span-5">CHANGE</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-change" class="col-span-6 text-right">0</span>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-dashed border-black my-2 pt-2 space-y-0.5">
-                        <div class="grid grid-cols-12">
-                            <span class="col-span-5">Kilometer</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-km" class="col-span-6">-</span>
-                        </div>
-                        <div class="grid grid-cols-12">
-                            <span class="col-span-5">No. Plat</span>
-                            <span class="col-span-1 text-center">:</span>
-                            <span id="out-plat" class="col-span-6 uppercase">B 2711 TZL</span>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-dashed border-black mt-3 pt-2 text-center text-[9px] uppercase leading-tight space-y-1">
-                        <div id="out-subsidi-footer">Anda mendapat subsidi dari Pemerintah...</div>
-                    </div>
+                <div class="total-row kembalian-row">
+                    <span>Kembalian:</span>
+                    <span id="text-kembalian">Rp 0</span>
                 </div>
-
-                <button onclick="window.print()" class="mt-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:bg-blue-700 w-full max-w-[340px]">
-                    🖨️ Cetak Struk Thermal
-                </button>
+                <button id="btn-proses-bayar" class="btn btn-submit" disabled>Proses & Simpan Transaksi</button>
             </div>
-        </div>
+        </section>
     </main>
 
-    <script src="script.js"></script>
+    <script href="script.js"></script>
 </body>
 </html>

@@ -1,323 +1,154 @@
-/* ==========================================================================
-   RESET & VARIABEL GLOBAL (Tema Warna Modern & Bersih)
-   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-
-:root {
-    --bg-aplikasi: #f8fafc;
-    --warna-utama: #2563eb;
-    --warna-utama-hover: #1d4ed8;
-    --warna-sukses: #10b981;
-    --warna-bahaya: #ef4444;
-    --warna-teks-gelap: #1e293b;
-    --warna-teks-ringan: #64748b;
-    --warna-garis: #e2e8f0;
-    --putih: #ffffff;
-    --radius-tombol: 12px;
-    --shadow-modern: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: var(--bg-aplikasi);
-    color: var(--warna-teks-gelap);
-    padding-bottom: 20px;
+    background-color: #f4f6f9;
+    color: #333;
 }
 
-/* ==========================================================================
-   HEADER APLIKASI (Ala Aplikasi Cloud POS Premium)
-   ========================================================================== */
-.app-header {
-    background-color: var(--putih);
-    padding: 16px 20px;
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--warna-garis);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 0.05);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.header-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--warna-teks-gelap);
-    letter-spacing: -0.5px;
-}
-
-.status-badge {
-    font-size: 0.75rem;
-    font-weight: 600;
+.badge {
     padding: 6px 12px;
-    background-color: #f1f5f9;
-    color: var(--warna-teks-ringan);
     border-radius: 20px;
-    border: 1px solid var(--warna-garis);
+    font-size: 0.85rem;
+    font-weight: bold;
 }
 
-.status-badge.online {
-    background-color: #ecfdf5;
-    color: var(--warna-sukses);
-    border-color: #a7f3d0;
-}
+.badge.loading { background-color: #ffc107; color: #212529; }
+.badge.online { background-color: #28a745; color: white; }
+.badge.offline { background-color: #dc3545; color: white; }
 
-/* ==========================================================================
-   TATA LETAK UTAMA (RESPONSIF HP & TABLET)
-   ========================================================================== */
-.main-container {
-    max-width: 1200px;
-    margin: 16px auto;
-    padding: 0 16px;
-    display: grid;
-    grid-template-columns: 1fr;
+.container {
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Jika layar lebar (seperti Tablet atau layar Landscape), otomatis membagi 2 kolom */
-@media (min-width: 768px) {
-    .main-container {
-        grid-template-columns: 1.2fr 0.8fr;
-    }
+.produk-section {
+    flex: 2;
+    min-width: 300px;
 }
 
-.section-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 14px;
-    color: var(--warna-teks-gelap);
+.keranjang-section {
+    flex: 1;
+    min-width: 300px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    height: fit-content;
 }
 
-/* ==========================================================================
-   AREA DAFTAR PRODUK (GRID KARTU MODERN)
-   ========================================================================== */
+h2 {
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 5px;
+}
+
 .grid-produk {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
 }
 
-.kartu-produk {
-    background-color: var(--putih);
-    border: 1px solid var(--warna-garis);
-    border-radius: var(--radius-tombol);
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: var(--shadow-modern);
-    -webkit-tap-highlight-color: transparent; /* Hilangkan kedipan biru di HP */
-}
-
-/* Efek saat produk ditekan jari di HP */
-.kartu-produk:active {
-    transform: scale(0.96);
-    border-color: var(--warna-utama);
-    background-color: #eff6ff;
-}
-
-.produk-nama {
-    display: block;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--warna-teks-gelap);
-    margin-bottom: 4px;
-    line-height: 1.3;
-}
-
-.produk-harga {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--warna-utama);
-    font-weight: 700;
-}
-
-.produk-stok {
-    margin-top: 12px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--warna-teks-ringan);
-    background-color: #f8fafc;
-    padding: 4px 8px;
-    border-radius: 6px;
+.card-produk {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
     text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* ==========================================================================
-   AREA KERANJANG BELANJA (STRUK INTERAKTIF)
-   ========================================================================== */
-.keranjang-section {
-    background-color: var(--putih);
-    border: 1px solid var(--warna-garis);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: var(--shadow-modern);
+.card-produk:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-.list-keranjang {
-    min-height: 120px;
-    max-height: 280px;
+.card-produk.habis {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.nama-p { font-weight: bold; margin-bottom: 5px; }
+.harga-p { color: #28a745; font-weight: bold; margin-bottom: 10px; }
+.stok-p { font-size: 0.8rem; color: #6c757d; }
+
+.item-keranjang {
+    min-height: 100px;
+    max-height: 250px;
     overflow-y: auto;
-    border-bottom: 1px dashed var(--warna-garis);
-    padding-bottom: 12px;
-    margin-bottom: 16px;
+}
+
+.row-keranjang {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #e9ecef;
 }
 
 .empty-text, .loading-text {
     text-align: center;
-    color: var(--warna-teks-ringan);
-    font-size: 0.9rem;
-    padding: 30px 0;
+    color: #6c757d;
+    font-style: italic;
+    padding: 20px 0;
 }
 
-/* Item di dalam keranjang */
-.item-keranjang {
+hr { border: 0; border-top: 1px solid #e9ecef; margin: 15px 0; }
+
+.total-pembayaran .row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #f1f5f9;
-}
-
-.item-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.item-nama {
-    font-weight: 600;
-}
-
-.item-hitung {
-    font-size: 0.8rem;
-    color: var(--warna-teks-ringan);
-}
-
-.item-subtotal {
-    font-weight: 700;
-    color: var(--warna-teks-gelap);
-}
-
-/* ==========================================================================
-   TOTAL HARGA & FORM PEMBAYARAN
-   ========================================================================== */
-.total-container {
-    background-color: #f8fafc;
-    padding: 14px;
-    border-radius: var(--radius-tombol);
-    margin-bottom: 16px;
-}
-
-.total-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    color: var(--warna-teks-ringan);
-    margin-bottom: 6px;
-}
-
-.total-row:last-child {
-    margin-bottom: 0;
-}
-
-.total-row.besar {
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: var(--warna-teks-gelap);
-    border-top: 1px solid var(--warna-garis);
-    padding-top: 8px;
-    margin-top: 6px;
-}
-
-.total-row.besar span:last-child {
-    color: var(--warna-utama);
-}
-
-/* Form Input Cash */
-.bayar-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.input-label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--warna-teks-ringan);
-}
-
-#input-cash {
-    width: 100%;
-    padding: 12px 16px;
+    margin-bottom: 12px;
     font-size: 1.05rem;
-    font-weight: 700;
-    border: 1px solid var(--warna-garis);
-    border-radius: var(--radius-tombol);
-    background-color: #f8fafc;
-    color: var(--warna-teks-gelap);
-    outline: none;
-    transition: all 0.2s;
 }
 
-#input-cash:focus {
-    border-color: var(--warna-utama);
-    background-color: var(--putih);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
+#total-tagihan { font-weight: bold; color: #007bff; font-size: 1.2rem; }
 
-.kembalian-row {
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 4px 0;
-}
-
-#text-kembalian {
-    color: var(--warna-teks-gelap);
-}
-
-/* Tombol Aksi */
-.btn {
-    width: 100%;
-    padding: 14px;
+.input-group label { font-size: 0.95rem; }
+.input-group input {
+    width: 60%;
+    padding: 6px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
     font-size: 1rem;
-    font-weight: 700;
+    text-align: right;
+}
+
+.btn-primary {
+    width: 100%;
+    background-color: #28a745;
+    color: white;
     border: none;
-    border-radius: var(--radius-tombol);
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
-    transition: all 0.2s;
-    text-align: center;
+    margin-top: 10px;
 }
 
-.btn-submit {
-    background-color: var(--warna-utama);
-    color: var(--putih);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-}
-
-.btn-submit:active {
-    transform: scale(0.98);
-    background-color: var(--warna-utama-hover);
-}
-
-/* Style tombol ketika terkunci/belum ada belanjaan */
-.btn:disabled {
-    background-color: #cbd5e1;
-    color: #94a3b8;
+.btn-primary:disabled {
+    background-color: #6c757d;
     cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
 }

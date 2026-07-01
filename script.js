@@ -30,17 +30,19 @@ async function muatDataProduk() {
     }
 }
 
-// 2. Render kartu produk ke layar
+// 2. Render kartu produk ke layar (Menampilkan Stok Awal & Stok Akhir)
 function tampilkanProduk() {
     gridProduk.innerHTML = '';
     dataProduk.forEach(produk => {
-        // Mengecek apakah stok_akhir habis atau tidak
         const card = document.createElement('div');
         card.className = `card-produk ${produk.stok_akhir <= 0 ? 'habis' : ''}`;
         card.innerHTML = `
             <div class="nama-p">${produk.nama}</div>
             <div class="harga-p">Rp ${produk.harga.toLocaleString('id-ID')}</div>
-            <div class="stok-p">Stok: ${produk.stok_akhir}</div>
+            <div class="stok-p" style="font-size: 0.9em; line-height: 1.4;">
+                <span style="color: #666;">Stok Awal: ${produk.stok_awal}</span><br>
+                <strong>Sisa Stok: ${produk.stok_akhir}</strong>
+            </div>
         `;
         
         if (produk.stok_akhir > 0) {
@@ -57,6 +59,7 @@ function tambahKeKeranjang(id) {
     
     // Validasi penambahan keranjang berdasarkan stok_akhir produk
     if (jumlahSaatIni < produk.stok_akhir) {
+        text = "Stok untuk " + produk.nama + " sudah habis di keranjang!";
         keranjang[id] = jumlahSaatIni + 1;
         updateKeranjang();
     } else {

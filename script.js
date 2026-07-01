@@ -1,4 +1,4 @@
-// Gantilah string di bawah ini dengan URL Web App dari Google Apps Script milikmu!
+// Gantilah string di bawah ini dengan URL Web App dari Google Apps Script milikmu yang BARU!
 const URL_API = "https://script.google.com/macros/s/AKfycbzqzHaOgpdQey1HT0nzsvHjwQFbI21x_pfcQbyDo6NDiZeXOjVBgyrEqyL_3iuL0FEL/exec";
 
 let dataProduk = [];
@@ -34,15 +34,16 @@ async function muatDataProduk() {
 function tampilkanProduk() {
     gridProduk.innerHTML = '';
     dataProduk.forEach(produk => {
+        // Mengecek apakah stok_akhir habis atau tidak
         const card = document.createElement('div');
-        card.className = `card-produk ${produk.stok <= 0 ? 'habis' : ''}`;
+        card.className = `card-produk ${produk.stok_akhir <= 0 ? 'habis' : ''}`;
         card.innerHTML = `
             <div class="nama-p">${produk.nama}</div>
             <div class="harga-p">Rp ${produk.harga.toLocaleString('id-ID')}</div>
-            <div class="stok-p">Stok: ${produk.stok}</div>
+            <div class="stok-p">Stok: ${produk.stok_akhir}</div>
         `;
         
-        if (produk.stok > 0) {
+        if (produk.stok_akhir > 0) {
             card.onclick = () => tambahKeKeranjang(produk.id);
         }
         gridProduk.appendChild(card);
@@ -54,7 +55,8 @@ function tambahKeKeranjang(id) {
     const produk = dataProduk.find(p => p.id === id);
     const jumlahSaatIni = keranjang[id] || 0;
     
-    if (jumlahSaatIni < produk.stok) {
+    // Validasi penambahan keranjang berdasarkan stok_akhir produk
+    if (jumlahSaatIni < produk.stok_akhir) {
         keranjang[id] = jumlahSaatIni + 1;
         updateKeranjang();
     } else {

@@ -30,7 +30,7 @@ async function muatDataProduk() {
     }
 }
 
-// 2. Render kartu produk ke layar (Menampilkan Stok Awal & Stok Akhir)
+// 2. Render kartu produk ke layar
 function tampilkanProduk() {
     gridProduk.innerHTML = '';
     dataProduk.forEach(produk => {
@@ -41,7 +41,7 @@ function tampilkanProduk() {
             <div class="harga-p">Rp ${produk.harga.toLocaleString('id-ID')}</div>
             <div class="stok-p" style="font-size: 0.9em; line-height: 1.4;">
                 <span style="color: #666;">Stok Awal: ${produk.stok_awal}</span><br>
-                <strong>Sisa Stok: ${produk.stok_akhir}</strong>
+                <strong>Stok Akhir: ${produk.stok_akhir}</strong>
             </div>
         `;
         
@@ -57,9 +57,7 @@ function tambahKeKeranjang(id) {
     const produk = dataProduk.find(p => p.id === id);
     const jumlahSaatIni = keranjang[id] || 0;
     
-    // Validasi penambahan keranjang berdasarkan stok_akhir produk
     if (jumlahSaatIni < produk.stok_akhir) {
-        text = "Stok untuk " + produk.nama + " sudah habis di keranjang!";
         keranjang[id] = jumlahSaatIni + 1;
         updateKeranjang();
     } else {
@@ -144,7 +142,7 @@ btnTransaksi.onclick = async () => {
             keranjang = {};
             inputBayar.value = '';
             updateKeranjang();
-            muatDataProduk(); // Muat ulang data/stok produk terbaru
+            muatDataProduk(); // Muat ulang data terbaru dari Sheets
         } else {
             alert("Gagal menyimpan transaksi: " + hasil.message);
         }
